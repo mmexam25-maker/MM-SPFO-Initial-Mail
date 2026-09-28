@@ -1,6 +1,0 @@
-target/
-.idea/
-gmail-tokens/
-gmail-oauth-credentials.json
-*.zip
-open_cases.csv
