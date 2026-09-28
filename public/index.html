@@ -1,5 +1,26 @@
-<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>SPFO Login Problem</title><style>body{font-family:Arial;background:#f4f7f5;margin:0}.card{max-width:720px;margin:25px auto;background:#fff;padding:24px;border-radius:16px;box-shadow:0 5px 20px #0002}.head{text-align:center;color:#176b32}.head img{max-width:220px;max-height:90px}label{display:block;font-weight:700;margin-top:14px}input{width:100%;box-sizing:border-box;padding:11px;margin-top:5px;border:1px solid #bbb;border-radius:8px}.vessel{padding:12px;margin-top:12px;background:#f7f7f7;border-radius:10px}.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}button{border:0;border-radius:9px;padding:12px 16px;font-weight:700;cursor:pointer;margin-top:14px}.add{background:#e7f3ea;color:#176b32}.open{width:100%;background:#176b32;color:#fff;font-size:16px}</style></head><body><div class="card"><div class="head"><img src="/logo.png"><h2>SPFO Initial A/C Problem</h2></div><label>Name</label><input id="name"><label>CDC No</label><input id="cdc"><label>Phone No</label><input id="phone"><div id="vessels"></div><button class="add" onclick="addVessel()">+ Add Vessel</button><button class="open" onclick="openMail()">OPEN MAIL</button></div><script>
-const q=new URLSearchParams(location.search); name.value=q.get('name')||''; cdc.value=q.get('cdc')||''; phone.value=q.get('phone')||'';
-function addVessel(){const n=document.querySelectorAll('.vessel').length+1,d=document.createElement('div');d.className='vessel';d.innerHTML=`<b>Vessel ${n}</b><label>Vessel Name</label><input class="vn"><div class="row"><div><label>From</label><input class="vf" placeholder="DD/MM/YYYY"></div><div><label>To</label><input class="vt" placeholder="DD/MM/YYYY"></div></div>`;vessels.appendChild(d)} addVessel();
-function openMail(){const vs=[...document.querySelectorAll('.vessel')].map((x,i)=>`Vessel name : ${x.querySelector('.vn').value}\nFrom : ${x.querySelector('.vf').value}   To : ${x.querySelector('.vt').value}`).join('\n\n');const nm=name.value.trim(),body=`Dear Team,\n\nMy details are as follows:\nName : ${nm}\nCDC No : ${cdc.value.trim()}\n${vs}\n\nI am trying to check my balance, but I am facing a login issue. It shows invalid username and password.\n\nKindly solve this issue at your earliest convenience. Looking forward to your support.\n\nThank you,\n${nm}\nPh.No : ${phone.value.trim()}`;location.href=`mailto:spfo-commr@spfo.gov.in?subject=${encodeURIComponent('Request to Solve Login Problem')}&body=${encodeURIComponent(body)}`}
+<!doctype html>
+<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>SPFO Login Problem</title>
+<style>
+body{font-family:Arial,sans-serif;background:#f4f7f5;margin:0}.card{max-width:720px;margin:25px auto;background:#fff;padding:24px;border-radius:16px;box-shadow:0 5px 20px #0002}.head{text-align:center;color:#176b32}.head img{max-width:220px;max-height:90px}label{display:block;font-weight:700;margin-top:14px}input{width:100%;box-sizing:border-box;padding:11px;margin-top:5px;border:1px solid #bbb;border-radius:8px;font-size:15px}input[readonly]{background:#f5f7f6}.dates{display:grid;grid-template-columns:1fr 1fr;gap:10px}.vessel{padding:12px;margin-top:12px;background:#f7f7f7;border-radius:10px}button{border:0;border-radius:9px;padding:12px 16px;font-weight:700;cursor:pointer;margin-top:14px}.add{background:#e7f3ea;color:#176b32}.open{width:100%;background:#176b32;color:#fff;font-size:16px}@media(max-width:600px){.card{margin:12px}.dates{grid-template-columns:1fr}}
+</style></head>
+<body><div class="card"><div class="head"><img src="/logo.png" alt="Mariners Mentor"><h2>SPFO Initial A/C Problem</h2></div>
+<label>Name</label><input id="name" readonly>
+<label>CDC No</label><input id="cdc" readonly>
+<label>Phone No</label><input id="phone" readonly>
+<div class="dates"><div><label>From</label><input id="fromDate" readonly></div><div><label>To</label><input id="toDate" readonly></div></div>
+<div id="vessels"></div><button class="add" type="button" onclick="addVessel()">+ Add Vessel</button><button class="open" type="button" onclick="openMail()">OPEN MAIL</button></div>
+<script>
+const q=new URLSearchParams(location.search);
+const el=id=>document.getElementById(id);
+el('name').value=q.get('name')||''; el('cdc').value=q.get('cdc')||''; el('phone').value=q.get('phone')||''; el('fromDate').value=q.get('from')||''; el('toDate').value=q.get('to')||'';
+function addVessel(){const n=document.querySelectorAll('.vessel').length+1,d=document.createElement('div');d.className='vessel';d.innerHTML=`<b>Vessel ${n}</b><label>Vessel Name</label><input class="vn" placeholder="Enter Vessel Name" required>`;el('vessels').appendChild(d)}
+addVessel();
+function openMail(){
+ const names=[...document.querySelectorAll('.vn')].map(x=>x.value.trim()).filter(Boolean);
+ if(!names.length){alert('Please enter Vessel Name.');document.querySelector('.vn').focus();return;}
+ const nm=el('name').value.trim(), cdc=el('cdc').value.trim(), phone=el('phone').value.trim(), from=el('fromDate').value.trim(), to=el('toDate').value.trim();
+ const vs=names.map(v=>`Vessel Name : ${v}\nFrom : ${from}   To : ${to}`).join('\n\n');
+ const body=`Dear Team,\n\nMy details are as follows:\nName : ${nm}\nCDC No : ${cdc}\n\n${vs}\n\nI am trying to check my balance, but I am facing a login issue.\nIt shows invalid username and password.\n\nKindly solve this issue at your earliest convenience.\nLooking forward to your support.\n\nThank you.\n\n${nm}\nPh. No : ${phone}`;
+ location.href=`mailto:spfo-commr@spfo.gov.in?subject=${encodeURIComponent('Request to Solve Login Problem')}&body=${encodeURIComponent(body)}`;
+}
 </script></body></html>
