@@ -1,0 +1,14 @@
+USE THIS AS A NEW INTELLIJ PROJECT - DO NOT OVERWRITE THE OLD PROJECT.
+
+1. Extract the folder MMcasesBot_NEW_20260916 into D:\users\IdeaProjects\
+2. Double-click FIX-AND-OPEN.bat.
+3. IntelliJ should open THIS new folder.
+4. Reload Maven if asked.
+5. Run src\main\java\org\example\Main.java.
+
+Correct run must show:
+- selenium-java\4.31.0
+- Tomcat initialized with port 18080
+- BUILD = 20260916 NEW PROJECT + PORT 18080 + SID V2 + SPFO
+
+If console shows port 8080 or selenium-java\4.23.1, you opened the OLD project.

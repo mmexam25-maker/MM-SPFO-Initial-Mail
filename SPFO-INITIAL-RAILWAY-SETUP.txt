@@ -1,0 +1,28 @@
+SPFO INITIAL A/C PROBLEM - RAILWAY OPEN MAIL
+
+Railway endpoint:
+  /spfo-initial-mail/{CASE_ID}
+
+Flow:
+1. MMcasesBot detects SPFO Initial A/C Problem.
+2. WhatsApp template sends OPEN MAIL button.
+3. Button opens Railway form with Mariners Mentor logo.
+4. Name + CDC No are read-only and loaded from Customer Profile.
+5. Candidate enters Vessel Name, From, To. + Add Vessel supports more rows.
+6. Open Mail prepares email to spfo-commr@spfo.gov.in.
+7. Name and phone are loaded from Customer Profile.
+
+Meta WhatsApp template required:
+  Name: spfo_initial_mail_1
+  Language: en
+  Body parameter {{1}} = candidate name
+  Website URL button must be DYNAMIC and end with {{1}}
+  URL: https://YOUR-RAILWAY-DOMAIN/spfo-initial-mail/{{1}}
+
+Optional application.properties:
+  whatsapp.spfo.initial.template.name=spfo_initial_mail_1
+  whatsapp.spfo.initial.template.language=en
+  app.public.url=https://YOUR-RAILWAY-DOMAIN
+
+Subject:
+  Request to Solve Login Problem

@@ -1,0 +1,26 @@
+DG MEMBERSHIP LOGIN FIX - 17 Sep 2026
+
+1. Membership DG flow uses the official eSamudra login page configured as:
+   http://220.156.189.33/esamudraUI/logOut.do?method=loadIndexPage
+
+2. DG browser now opens in Chrome first (Firefox only as fallback).
+
+3. INDoS password is typed exactly as stored in Mariners Mentor.
+   The bot no longer trims/rewrites the password before DG login.
+
+4. Wrong-password detection is strict. A password is marked wrong only when DG
+   explicitly displays an invalid/incorrect credentials message.
+   A timeout, slow DG page, intermediate page, or other login problem is NOT
+   classified as Wrong INDoS Password.
+
+5. Successful login is confirmed from the authenticated DG home page by items
+   such as Update Seafarer Profile / View Sea Service and Acknowledge / Logout.
+
+6. Password extraction from Mariners Mentor accepts punctuation instead of the
+   older restricted password regex.
+
+7. The membership data flow remains:
+   INDoS -> DG -> Sea Service -> SID -> Course -> Sheets -> MM Customer Update.
+
+Note: DgProfileSync.java is legacy Sagar Mein Yog code and is not the membership
+DG implementation. Membership DG is handled by CustomerProfileBackfillService.java.
