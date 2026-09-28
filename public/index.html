@@ -10,7 +10,8 @@ body{font-family:Arial,sans-serif;background:#f4f7f5;margin:0}.card{max-width:72
 const q=new URLSearchParams(location.search);
 const el=id=>document.getElementById(id);
 el('name').value=q.get('name')||''; el('cdc').value=q.get('cdc')||''; el('phone').value=q.get('phone')||'';
-function addVessel(){const n=document.querySelectorAll('.vessel').length+1,d=document.createElement('div');d.className='vessel';d.innerHTML=`<b>Vessel ${n}</b><label>Vessel Name</label><input class="vn" placeholder="Enter Vessel Name" required><div class="dates"><div><label>From</label><input class="vf" placeholder="DD/MM/YYYY" inputmode="numeric" maxlength="10" required></div><div><label>To</label><input class="vt" placeholder="DD/MM/YYYY" inputmode="numeric" maxlength="10" required></div></div>`;el('vessels').appendChild(d)}
+function formatDateInput(e){const input=e.target;let digits=input.value.replace(/\D/g,'').slice(0,8);let out=digits.slice(0,2);if(digits.length>2)out+='/'+digits.slice(2,4);if(digits.length>4)out+='/'+digits.slice(4,8);input.value=out;}
+function addVessel(){const n=document.querySelectorAll('.vessel').length+1,d=document.createElement('div');d.className='vessel';d.innerHTML=`<b>Vessel ${n}</b><label>Vessel Name</label><input class="vn" placeholder="Enter Vessel Name" required><div class="dates"><div><label>From</label><input class="vf" placeholder="DD/MM/YYYY" inputmode="numeric" maxlength="10" required></div><div><label>To</label><input class="vt" placeholder="DD/MM/YYYY" inputmode="numeric" maxlength="10" required></div></div>`;el('vessels').appendChild(d);d.querySelectorAll('.vf,.vt').forEach(i=>i.addEventListener('input',formatDateInput));}
 addVessel();
 function validDate(v){
  return /^(0[1-9]|[12]\d|3[01])\/(0[1-9]|1[0-2])\/\d{4}$/.test(v);
