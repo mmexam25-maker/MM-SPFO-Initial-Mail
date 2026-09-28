@@ -1,9 +1,0 @@
-MMcasesBot - 17 Sep 2026 cleanup/build
-
-1. Normal Cases: process current-date cases only.
-2. Only OPEN SPFO Interest Problem cases continue across days.
-3. SPFO Interest: recheck every 30 minutes (configurable), detect Resolved, send final result, then close MM case.
-4. Membership Lifetime: current-date case only, data-first DG -> 3 Sheets -> MM Customer, then candidate communication.
-5. Membership WhatsApp: separate Meta Phone Number ID/template supported via config.
-6. Membership profile coverage includes surname, DOB, father name, height, passport, CDC expiry, SID, course details and sea service when available.
-7. Removed generated/unneeded project files from delivery ZIP: target, .idea, old nested ZIP, spfo-debug, old local sent/attempt property files. Runtime send history remains outside project in the persistent local state directory.
